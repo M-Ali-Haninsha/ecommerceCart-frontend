@@ -179,7 +179,11 @@ export class ProductPageComponent implements OnInit {
     }
   }
 
+
   removeItem(id:string) {
+    const confirmed = confirm("Are you sure you want to remove this item?");
+    if (!confirmed) return;
+  
     const userValue = sessionStorage.getItem('userValue');
     if(userValue) {
       const user = JSON.parse(userValue);
@@ -197,15 +201,13 @@ export class ProductPageComponent implements OnInit {
         const index = cartItems.findIndex((item: any) => item.productId === id);
   
         if (index !== -1) {
-          // Remove the item from the cart items array
           cartItems.splice(index, 1);
           localStorage.setItem('cartItems', JSON.stringify(cartItems));
-          this.getCartItems(); // Update the UI
+          this.getCartItems();
         }
       }
     }
   }
-
 
   checkout() {
     const userValue = sessionStorage.getItem('userValue');
